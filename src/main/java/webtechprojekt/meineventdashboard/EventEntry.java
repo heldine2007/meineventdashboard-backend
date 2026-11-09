@@ -1,15 +1,25 @@
 package webtechprojekt.meineventdashboard;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
+@Entity
+@Table(name = "events")
 @Getter
 @Setter
+@NoArgsConstructor
 public class EventEntry {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long databaseId;
 
     private String id;
     private String name;
@@ -23,33 +33,13 @@ public class EventEntry {
     private String description;
     private String imageUrl;
 
-    private static final DateTimeFormatter DATE_FORMAT =
-            DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-    private static final DateTimeFormatter TIME_FORMAT =
-            DateTimeFormatter.ofPattern("HH:mm");
-
     public EventEntry(String name) {
-        this(
-                name,
-                LocalDate.now().format(DATE_FORMAT),
-                LocalDate.now().format(DATE_FORMAT),
-                LocalTime.now().format(TIME_FORMAT),
-                0f, 0f, false
-        );
+        this.name = name;
     }
 
-    public EventEntry(
-            String name,
-            String firstDate,
-            String lastDate,
-            String currentTime,
-            float price,
-            float distance,
-            boolean pass
-    ) {
-        this.id = name.toLowerCase().replaceAll("[^a-z0-9]+", "-");
-
+    public EventEntry(String name, String firstDate, String lastDate,
+                      String currentTime, float price, float distance,
+                      boolean pass) {
         this.name = name;
         this.firstDate = firstDate;
         this.lastDate = lastDate;
@@ -57,26 +47,12 @@ public class EventEntry {
         this.price = price;
         this.distance = distance;
         this.pass = pass;
-        this.category = "Freizeit";
-        this.description = "Weitere Informationen folgen.";
-        this.imageUrl = "";
     }
 
-    public EventEntry(
-            String id,
-            String name,
-            String firstDate,
-            String lastDate,
-            String currentTime,
-            float price,
-            float distance,
-            boolean pass,
-            String category,
-            String description,
-            String imageUrl
-    )
-
-    {
+    public EventEntry(String id, String name, String firstDate,
+                      String lastDate, String currentTime, float price,
+                      float distance, boolean pass, String category,
+                      String description, String imageUrl) {
         this.id = id;
         this.name = name;
         this.firstDate = firstDate;
