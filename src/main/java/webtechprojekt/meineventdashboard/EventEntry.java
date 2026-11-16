@@ -1,10 +1,6 @@
 package webtechprojekt.meineventdashboard;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +21,10 @@ public class EventEntry {
     private String name;
     private String firstDate;
     private String lastDate;
+
+    @Column(name = "event_time")
     private String currentTime;
+
     private float price;
     private float distance;
     private boolean pass;
